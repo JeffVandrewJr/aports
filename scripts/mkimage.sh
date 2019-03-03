@@ -273,6 +273,7 @@ for ARCH in $req_arch; do
 	abuild-apk update --root "$APKROOT"
     cd "$APKROOT"
     git clone https://github.com/JeffVandrewJr/lightningos.git
+    cp $APKROOT/lightningos/install.sh $APKROOT/usr/local/bin
     echo "Welcome to LightningOS" > $APKROOT/etc/motd
 
 	if [ "$_yaml" = "yes" ]; then
