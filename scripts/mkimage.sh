@@ -271,6 +271,9 @@ for ARCH in $req_arch; do
 		done
 	fi
 	abuild-apk update --root "$APKROOT"
+    cd "$APKROOT"
+    git clone https://github.com/JeffVandrewJr/lightningos.git
+    echo "Welcome to LightningOS" > $APKROOT/etc/motd
 
 	if [ "$_yaml" = "yes" ]; then
 		_yaml_out=${OUTDIR:-.}/latest-releases.yaml
