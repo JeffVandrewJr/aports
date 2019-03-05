@@ -1,0 +1,47 @@
+#Contributor: Jeff Vandrew Jr
+#Maintainer: Jeff Vandrew Jr
+pkgname=lightningos
+pkgver=0.1.0
+pkgrel=0
+pkgdesc="Creates LightningOS"
+url="https://github.com/JeffVandrewJr/lightningos"
+arch="x86_64"
+license="MIT"
+depends="avahi
+	git
+	networkmanager
+	docker
+	docker-compose
+	dbus
+	udisks2"
+makedepends=""
+install=""
+subpackages="$pkgname-dev $pkgname-doc"
+source="https://github.com/JeffVandrewJr/lightningos/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-$pkgver"
+
+build() {
+	cd "$builddir"
+	return 0
+}
+
+check() {
+	cd "$builddir"
+	return 0
+}
+
+package() {
+	cd "$builddir"
+	cat "Welcome to LightningOS v$pkgver" > /etc/motd
+	install -m 755 -D "$srcdir"/docker-bitcoin.initd "$pkgdir"/etc/init.d/docker-bitcoin
+	install -m 444 "$srcdir"/answerfile "$pkgdir"/usr/lib/$pkgname
+	install -m 555 "$srcdir"/bitcoin-cli.sh "$pkgdir"/usr/bin/$pkgname
+	install -m 555 "$srcdir"/docker-compose.template.yml"$pkgdir"/usr/lib/$pkgname
+	install -m 555 "$srcdir"/install.sh "$pkgdir"/usr/bin/$pkgname
+	install -m 555 "$srcdir"/lncli.sh "$pkgdir"/usr/bin/$pkgname
+	install -m 444 "$srcdir"/repositories "$pkgdir"/usr/lib/$pkgname
+	install -m 555 "$srcdir"/setup-bitcoin.sh "$pkgdir"/usr/bin/$pkgname
+	install -m 555 "$srcdir"/wifi.sh "$pkgdir"/usr/bin/$pkgname
+}
+
+sha512sums="08713e3cc74e7cbc68ee9747b01672886cb95c012b7c31bd501d3885f53de4c8e3464ea3456f8db5c3a3bebb981b75b73fc908403c7f0f714988f20b2b2b2443  v0.1.0.tar.gz"
